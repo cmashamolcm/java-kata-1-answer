@@ -26,3 +26,6 @@
     * Pipeline: Series of instructions
     * Stages: Each step in pipeline
     * Step: Each task in a stage
+        * Pipleline creation require <b>Jenkinsfile</b> in project directory.
+        * For a normal job like a maven project deployement, that is not required.
+    
