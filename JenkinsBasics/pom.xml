@@ -49,4 +49,12 @@
     </plugins>
 </build>
 
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Internal repo</name>
+            <url>file:///Users/ganeshkv/AshamolCM/Softwares/maven/deploy</url>
+        </repository>
+    </distributionManagement>
+
 </project>
