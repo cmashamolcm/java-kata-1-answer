@@ -1,6 +1,6 @@
 ### Jenkins:
 ****
-
+Install by  "brew install jenkins-lts" and run by command "jenkins-lts"
 1. Install Jenkins
 2. Specify in configuration, maven path and JDK path
 3. Create a maven project
@@ -28,4 +28,16 @@
     * Step: Each task in a stage
         * Pipleline creation require <b>Jenkinsfile</b> in project directory.
         * For a normal job like a maven project deployement, that is not required.
-    
+14. Docker With Jenkins:
+    * Create a maven plugin based docker project and push to github
+    * Create a free style project job to run it in Jenkins.
+    * Then to use docker with Jenkins, install docker plugins (Cloudbee docker)
+    * Inside free simple project build section, we will get "docker build and publish" option in drop-down if plugin is there.
+    * Configure Dockerfile path after selecting this drop-down for build with docker
+    * No need of to add docker plugin in pom.xml if we are not trying with mvn project type in Jenkins items.
+ 
+
+Use jenkins-cli to download the jenknis job configs for future use.
+    * Install jenkins-cli.jar from localhost:8080->manage jenkins-> jenkin cli
+    * Run
+    * java -jar jenkins-cli.jar -s "http://localhost:8080" -auth username:passwork-for-jenkins -webSocket get-job docker-maven-job > docker-maven-job.xml
