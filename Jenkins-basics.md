@@ -10,3 +10,4 @@
 7. trigger build
 8. It will get auto triggerred if we configured that way.
 9. Jenkins JDK version should be appropriate with the actual github project version. Else, error comes.
+10. It is mandatory to have distributionManagement in pom.xml holding the details of repository to deploy the jar.
