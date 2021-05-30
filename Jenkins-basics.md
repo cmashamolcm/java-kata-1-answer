@@ -22,3 +22,7 @@
         * While configuring the pipeline project ensure to add github repo and instead of gicing scripts,
           select "pipeline script from SCM" so that Jenkinsfile will be taken from project folder.
         * When we setup a pipeline job where read from SCM is given, error comes if a Jenkinsfile is not present.
+    * Node: Where the job is running
+    * Pipeline: Series of instructions
+    * Stages: Each step in pipeline
+    * Step: Each task in a stage
