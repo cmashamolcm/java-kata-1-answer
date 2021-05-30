@@ -1,0 +1,17 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jenkins.app</groupId>
+    <artifactId>jenkins-app</artifactId>
+    <version>1</version>
+
+    <modules>
+        <module>JenkinsBasics</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+    </properties>
+</project>
