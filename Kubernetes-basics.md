@@ -84,4 +84,8 @@
     15.minikube service springboot-docker-kubernetes
        will start the service and load it in some random port in browser.
        Eg: http://127.0.0.1:57760/
+       
+
+Reference: https://www.bogotobogo.com/DevOps/DevOps-Kubernetes-1-Running-Kubernetes-Locally-via-Minikube.php
+
    
