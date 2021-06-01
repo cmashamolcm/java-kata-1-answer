@@ -27,7 +27,7 @@ Install by  "brew install jenkins-lts" and run by command "jenkins-lts"
     * Stages: Each step in pipeline
     * Step: Each task in a stage
         * Pipleline creation require <b>Jenkinsfile</b> in project directory.
-        * For a normal job like a maven project deployement, that is not required.
+        * For a normal job like a maven project deployment, that is not required.
 14. Docker With Jenkins:
     * Create a maven plugin based docker project and push to github
     * Create a free style project job to run it in Jenkins.
@@ -40,4 +40,16 @@ Install by  "brew install jenkins-lts" and run by command "jenkins-lts"
 Use jenkins-cli to download the jenknis job configs for future use.
     * Install jenkins-cli.jar from localhost:8080->manage jenkins-> jenkin cli
     * Run
-    * java -jar jenkins-cli.jar -s "http://localhost:8080" -auth username:passwork-for-jenkins -webSocket get-job docker-maven-job > docker-maven-job.xml
+    * java -jar jenkins-cli.jar -s "http://localhost:8080" -auth username:password-for-jenkins -webSocket get-job docker-maven-job > docker-maven-job.xml
+
+
+Note:
+    * When we add mvn and jdkin tools part of Jenkinsfile;
+                
+        pipeline{
+            agent any
+            tools{
+                maven 'maven' -----------name given for the mvn config in jenkins config
+                jdk 'jdk16'   -----------name given for jdk in jenkins config
+            }
+        }
