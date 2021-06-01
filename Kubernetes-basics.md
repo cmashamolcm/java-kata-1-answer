@@ -85,6 +85,59 @@
        will start the service and load it in some random port in browser.
        Eg: http://127.0.0.1:57760/
        
+    16. kubectl create deployment demo --image=springboot-docker-kubernetes:2.4.4 --dry-run -o=yaml > deployment.yaml
+        will generate a yaml file to setup kubernetes Deployment.
+    17. After that,
+        Add imagePullPolicy: Never also if we want to take local image
+    18. kubectl get all ---will show all services, pods and deployments.
+    19. We have to create a service now for this pod deployed.
+        kubectl expose deployment demo  --type=LoadBalancer --port 8082
+        It will create a service for us which makes the pod expose 8082 port for internal communication with service.
+    20. minikube service demo
+        will load the service in random port in browser.
+       
+
+9. Commonly used Terms:
+    * Containers:
+      The basic block where an application resides in.
+      Provided by docker or such hypervisor drivers attached to the k8
+    * Pods:
+      Smallest deployable unit.
+      Logical group of running containers in a K8 cluster
+      Updates happens to entire pod usually
+    * Container runtime:
+      Where the pods are residing in.
+      Can be considered like a JVM kind of thing in which the pos will be living in
+    * Nodes:
+      Machine where K8 resides in
+    * A set of K8 nodes working together is called K8 cluster
+    
+    * Workload:
+      The actual app running in k8. It can be in a single node or many nodes, in many pods and containers.
+      Together is called workload
+      
+    * Deployment: 
+        The declarative updates for pos and replicas
+        It is the one which controls the life of pods
+        When we create deployment we specify a port. That is local to the pod.
+        That is the port through which pod exposes the apps to service.
+        There will be another port in service randomly allocated to expose this to external world.
+        There will be an app labels (called selector--similar to service ids in eureka) based on which each apps in same pod is uniquely identified.
+        So, multiple apps if present in a pod can be exposed through different ports to the service. 
+      
+    *  Service: 
+        It can treat as group of pods.
+        The pods associated with a service will be exposed through dynamic service ports to external world
+        Abstract way of exposing apps residing in pods.
+        Service has it's own ports, network IP, lifecycle etc.
+        Pods also has its own IP, port etc.
+        External world is exposed by services.
+        Pod lifecycle is independent of service.
+        So, even if something happens to pod, just a deployment of pod will be enough to make the service come back.
+        The external users and apps will be unaffected as there will be any change for IP or port once created.
+        The pod gone down comes back and ties to the same service and works smoothly.
+    * Default protocol between pod and services is tcp.
+        pods----------tcp---------service
 
 Reference: https://www.bogotobogo.com/DevOps/DevOps-Kubernetes-1-Running-Kubernetes-Locally-via-Minikube.php
 
