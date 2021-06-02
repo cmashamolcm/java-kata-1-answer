@@ -32,7 +32,7 @@
 
 
                                                                                                                 Image reregistry     
-                                                                                                                        |
+               kubectl                                                                                                  |
     Command line interface to                                       |---------------------------------------------------|                                                           |---------------------------------------------------
     communicate with master--------------------->                   | Master Node                                       |                                                           |worker node
                                                      API----------->|                                                   |                                                           |    - where actual containers resides inside pods. Workedr node has multiple pods in it.
@@ -140,5 +140,69 @@
         pods----------tcp---------service
 
 Reference: https://www.bogotobogo.com/DevOps/DevOps-Kubernetes-1-Running-Kubernetes-Locally-via-Minikube.php
+10. Port vs targetPort vs nodePort:
+    
+            
+        apiVersion: v1
+        kind: Service
+        metadata:
+            name: hello-world
+            spec:
+                type: NodePort
+                selector:
+                    app: hello-world
+                    ports:
+                        - protocol: TCP
+                        port: 8080 ----------------this is port of pod exposed internally so that other pods can communicate with it. This is like a server port local to the cluster
+                        targetPort: 80 ------------through which service sends instructions to the pod. Our deployed app will be listening in this port for commands from service to which it is connected.
+                                                    this defaults to port itself if not specified.
+                        nodePort: 30036 -----------exposing to external world. It will be randomly auto assigned if not speciifed
 
-   
+                nexternal world ------------->nodePort of service----------->passes instruction to pos through targetPort ----------> actual app / container in pod responds through port for the given request.
+
+
+11. All the containers in the same POD shares the same netwrok name space - localhost. So, they can interact with each other closely. But two of them cannot be in same port.
+    Refer https://kubernetes.io/docs/concepts/cluster-administration/networking/
+
+
+12. Deployment In GCP:
+    1. Create springboot app
+    2. Generate yaml file for deployment.
+       * kubectl create deployment demo --image=springboot-docker-kubernetes:2.4.4 --dry-run -o=yaml > deployment.yaml
+    3. Remove imagePullPolicy: Never of given or change it to always
+    4. Give the publi docker hub repo image name.
+       * - image: manikuttyselffav/springboot-docker-kubernetes:2.4.4
+    5. Create cluster in gcp kubernetes engine
+    6. Click on create button in cluster tab in left side menu
+    7. It will promt to open a console to use kubectl command
+    8. Upload our yaml file into it.
+    9. ls will show the uploaded file in console
+    10.kubectl apply -f deploy.yaml
+    11.kubectl get all -----will show the status
+    12.If we open the workload tab in left menu, we will be able to view the deployment.
+    13.Now we have to expose this app to the public.
+    14.Go to workload tab
+    15.Click on service name
+    16.Select "expose" from ACTIONS menu   
+    17.Enter the target port same as container port (8082 in our case)
+    18.Select Service type as "Load Balancer" which will create a load balancer for our app along with external ip.
+    19.Go to service & ingress option in left menu
+    20. It will show the public IP with which we can access our endpoint.   
+    Use gcp-deploy.yaml for cloud deployment.
+    Use deploy.yaml for minikube deployment
+        Key player is kubectl which contacts kubernetes engine in master node to do everything.
+    Use <b>kubectl describe pod {pod name}</b> to get all details of pod. It will even show what reason caused failure as well.
+    Delete the cluster once done to avoid billing.   
+        
+Kubernetes engine is the k8 management facility provided by Google Cloud.
+Basic k8 has only master nodes and workers. There is nothing to call engine. But may be master node can treated like that.
+
+
+It is very rare to use multiple containers in same pod.
+Sidecar, Ambassador, Adaptor are the 3 ways to do it.
+<b>Side car</b> means there will be a main app and another one to support it. Eg: custom service side ar with logging service
+<b>Ambassador</b> means proxying for actual service.
+<b>Adaptor</b> used to standardize and normalize output. We can use a monitor adaptor to connect to a monitoring system to provide necessary info in specific format to that system from actual app.
+
+Reference Links:
+https://www.youtube.com/watch?v=SzbeDqBSRkc
