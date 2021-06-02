@@ -203,3 +203,6 @@ Sidecar, Ambassador, Adaptor are the 3 ways to do it.
 <b>Side car</b> means there will be a main app and another one to support it. Eg: custom service side ar with logging service
 <b>Ambassador</b> means proxying for actual service.
 <b>Adaptor</b> used to standardize and normalize output. We can use a monitor adaptor to connect to a monitoring system to provide necessary info in specific format to that system from actual app.
+
+Reference Links:
+https://www.youtube.com/watch?v=SzbeDqBSRkc
